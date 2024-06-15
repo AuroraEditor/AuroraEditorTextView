@@ -1,0 +1,3 @@
+module AuroraEditorTextViewObjC {
+    header "CGContextHidden.h"
+}
