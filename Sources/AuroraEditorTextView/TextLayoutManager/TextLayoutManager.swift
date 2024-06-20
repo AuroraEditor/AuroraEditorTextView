@@ -318,6 +318,19 @@ public class TextLayoutManager: NSObject {
         return CGSize(width: width, height: height)
     }
 
+	/// Calculates the line height for the given attributed string.
+	/// - Parameter attributedString: The attributed string to calculate the line height for.
+	/// - Returns: The calculated line height.
+	public func textLineHeight(for attributedString: NSAttributedString) -> CGFloat {
+		let typesetter = CTTypesetterCreateWithAttributedString(attributedString)
+		let ctLine = CTTypesetterCreateLine(typesetter, CFRangeMake(0, attributedString.length))
+		var ascent: CGFloat = 0
+		var descent: CGFloat = 0
+		var leading: CGFloat = 0
+		CTLineGetTypographicBounds(ctLine, &ascent, &descent, &leading)
+		return (ascent + descent + leading) * lineHeightMultiplier
+	}
+
     /// Lays out a line fragment view for the given line fragment at the specified y value.
     /// - Parameters:
     ///   - lineFragment: The line fragment position to lay out a view for.
