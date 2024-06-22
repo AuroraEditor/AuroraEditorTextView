@@ -18,7 +18,8 @@ extension TextView {
 		return [
 			CustomMenuItem(title: "Cut", action: #selector(cut(_:)), keyEquivalent: "x"),
 			CustomMenuItem(title: "Copy", action: #selector(copy(_:)), keyEquivalent: "c"),
-			CustomMenuItem(title: "Paste", action: #selector(paste(_:)), keyEquivalent: "v")
+			CustomMenuItem(title: "Paste", action: #selector(paste(_:)), keyEquivalent: "v"),
+			CustomMenuItem(title: "Delete", action: nil, keyEquivalent: "d")
 		]
 	}
 
