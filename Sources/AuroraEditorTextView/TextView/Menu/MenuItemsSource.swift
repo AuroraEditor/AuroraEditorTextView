@@ -12,7 +12,7 @@
 /// - Important: This protocol inherits from AnyObject, which means only class types can conform to it.
 ///
 /// - Note: The implementing type is responsible for creating and returning an array of ``MenuItemProvider`` objects.
-public protocol MenuItemsSource: AnyObject {
+public protocol MenuItemsSource {
 	/// Provides an array of menu items for the given TextView.
 	///
 	/// - Parameter textView: The TextView requesting the menu items.

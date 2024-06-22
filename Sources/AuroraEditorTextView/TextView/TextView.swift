@@ -6,7 +6,6 @@
 //
 
 import AppKit
-import Version_Control
 
 // Disabling file length and type body length as the methods and variables contained in this file cannot be moved
 // to extensions.
@@ -202,7 +201,7 @@ public class TextView: NSView, NSTextContent {
         }
     }
 
-	weak var menuItemsSource: MenuItemsSource?
+	public var menuItemsSource: MenuItemsSource?
 
     open var contentType: NSTextContentType?
 
