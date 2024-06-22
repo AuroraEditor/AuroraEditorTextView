@@ -23,15 +23,13 @@ extension TextView {
 	}
 
 	/**
-	 Overrides the default menu creation for the TextView.
-	 This method is called when the user right-clicks on the TextView.
+	 Creates and returns a menu for the TextView.
+	 This method is called when the user right-clicks on the TextView or when a menu update is triggered.
 
-	 - Parameter event: The NSEvent that triggered the menu creation.
-	 - Returns: An NSMenu object containing both custom and default menu items, or nil if the event is not a right mouse click.
+	 - Parameter event: The NSEvent that triggered the menu creation, if applicable.
+	 - Returns: An NSMenu object containing both custom and default menu items.
 	 */
-	override public func menu(for event: NSEvent) -> NSMenu? {
-		guard event.type == .rightMouseDown else { return nil }
-
+	private func createMenu(for event: NSEvent?) -> NSMenu {
 		let menu = NSMenu()
 
 		var menuItems: [MenuItemProvider] = []
@@ -58,5 +56,25 @@ extension TextView {
 		}
 
 		return menu
+	}
+
+	/**
+	 Overrides the default menu creation for the TextView.
+	 This method is called when the user right-clicks on the TextView.
+
+	 - Parameter event: The NSEvent that triggered the menu creation.
+	 - Returns: An NSMenu object containing both custom and default menu items, or nil if the event is not a right mouse click.
+	 */
+	override public func menu(for event: NSEvent) -> NSMenu? {
+		guard event.type == .rightMouseDown else { return nil }
+		return createMenu(for: event)
+	}
+
+	/**
+	 Updates the context menu for the TextView.
+	 This method can be called at any time to refresh the menu items.
+	 */
+	public func updateContextMenu() {
+		self.menu = createMenu(for: nil)
 	}
 }
