@@ -29,7 +29,7 @@ extension TextView {
 	 - Parameter event: The NSEvent that triggered the menu creation, if applicable.
 	 - Returns: An NSMenu object containing both custom and default menu items.
 	 */
-	private func createMenu(for event: NSEvent?) -> NSMenu {
+	public func createMenu(for event: NSEvent?) -> NSMenu {
 		let menu = NSMenu()
 
 		var menuItems: [MenuItemProvider] = []
