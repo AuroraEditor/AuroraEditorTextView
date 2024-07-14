@@ -3,6 +3,11 @@
 
 import SwiftUI
 
+// swiftlint:disable:next line_length
+@available(*,
+			unavailable,
+			renamed: "AuroraEditorSourceEditor",
+			message: "AuroraEditorTextView has moved to https://github.com/AuroraEditor/AuroraEditorSourceEditor, please update any dependencies to use this new repository URL.")
 struct AuroraEditorTextView: View {
     var body: some View {
         EmptyView()

@@ -201,8 +201,6 @@ public class TextView: NSView, NSTextContent {
         }
     }
 
-	public var menuItemsSource: MenuItemsSource?
-
     open var contentType: NSTextContentType?
 
     /// The text view's delegate.
