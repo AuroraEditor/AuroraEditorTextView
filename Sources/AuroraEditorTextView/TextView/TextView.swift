@@ -44,22 +44,14 @@ public class TextView: NSView, NSTextContent {
     /// - foregroundColor: System text color
     /// - kern: 0.0
     public static var defaultTypingAttributes: [NSAttributedString.Key: Any] {
-        [
-            .font: NSFont.systemFont(ofSize: 12),
-            .foregroundColor: NSColor.textColor,
-            .kern: 0.0
-        ]
+        [.font: NSFont.systemFont(ofSize: 12), .foregroundColor: NSColor.textColor, .kern: 0.0]
     }
 
     // swiftlint:disable:next line_length
-    public static let textDidChangeNotification: Notification.Name = .init(
-        rawValue: "com.AuroraEditor.TextView.TextDidChangeNotification"
-    )
+    public static let textDidChangeNotification: Notification.Name = .init(rawValue: "com.AuroraEditor.TextView.TextDidChangeNotification")
 
     // swiftlint:disable:next line_length
-    public static let textWillChangeNotification: Notification.Name = .init(
-        rawValue: "com.AuroraEditor.TextView.TextWillChangeNotification"
-    )
+    public static let textWillChangeNotification: Notification.Name = .init(rawValue: "com.AuroraEditor.TextView.TextWillChangeNotification")
 
     // MARK: - Configuration
 
@@ -69,20 +61,8 @@ public class TextView: NSView, NSTextContent {
             textStorage.string
         }
         set {
-            layoutManager.willReplaceCharactersInRange(
-                range: documentRange,
-                with: newValue
-            )
-            textStorage.setAttributedString(
-                NSAttributedString(
-                    string: newValue,
-                    attributes: typingAttributes
-                )
-            )
-            delegate?.textViewDidChange(
-                self,
-                newText: newValue
-            )
+            layoutManager.willReplaceCharactersInRange(range: documentRange, with: newValue)
+            textStorage.setAttributedString(NSAttributedString(string: newValue, attributes: typingAttributes))
         }
     }
 
@@ -243,9 +223,7 @@ public class TextView: NSView, NSTextContent {
     var mouseDragTimer: Timer?
 
     private var fontCharWidth: CGFloat {
-        (" " as NSString).size(
-            withAttributes: [.font: font]
-        ).width
+        (" " as NSString).size(withAttributes: [.font: font]).width
     }
 
     internal(set) public var _undoManager: AEUndoManager?
@@ -305,16 +283,10 @@ public class TextView: NSView, NSTextContent {
             .foregroundColor: textColor,
         ]
 
-        textStorage.addAttributes(
-            typingAttributes,
-            range: documentRange
-        )
+        textStorage.addAttributes(typingAttributes, range: documentRange)
         textStorage.delegate = storageDelegate
 
-        layoutManager = setUpLayoutManager(
-            lineHeightMultiplier: lineHeightMultiplier,
-            wrapLines: wrapLines
-        )
+        layoutManager = setUpLayoutManager(lineHeightMultiplier: lineHeightMultiplier, wrapLines: wrapLines)
         storageDelegate.addDelegate(layoutManager)
         selectionManager = setUpSelectionManager()
         selectionManager.useSystemCursor = useSystemCursor
@@ -330,7 +302,6 @@ public class TextView: NSView, NSTextContent {
     public func setText(_ text: String) {
         let newStorage = NSTextStorage(string: text)
         self.setTextStorage(newStorage)
-        delegate?.textViewDidChange(self, newText: text)
     }
 
     /// Set a new text storage object for the view.
@@ -342,29 +313,18 @@ public class TextView: NSView, NSTextContent {
             view.removeFromSuperview()
         }
 
-        textStorage.addAttributes(
-            typingAttributes,
-            range: documentRange
-        )
+        textStorage.addAttributes(typingAttributes, range: documentRange)
         layoutManager.textStorage = textStorage
         layoutManager.reset()
 
         selectionManager.textStorage = textStorage
-        selectionManager.setSelectedRanges(
-            selectionManager.textSelections.map {
-                $0.range
-            })
+        selectionManager.setSelectedRanges(selectionManager.textSelections.map { $0.range })
 
         _undoManager?.clearStack()
 
         textStorage.delegate = storageDelegate
         needsDisplay = true
         needsLayout = true
-
-        delegate?.textViewDidChange(
-            self,
-            newText: textStorage.string
-        )
     }
 
     required init?(coder: NSCoder) {
@@ -580,10 +540,7 @@ public class TextView: NSView, NSTextContent {
         var lastFrame: CGRect = .zero
         while let selection = selectionManager
             .textSelections
-            .sorted(
-                by: {
-                    $0.boundingRect.origin.y < $1.boundingRect.origin.y
-                })
+            .sorted(by: { $0.boundingRect.origin.y < $1.boundingRect.origin.y })
             .first,
               lastFrame != selection.boundingRect {
             lastFrame = selection.boundingRect

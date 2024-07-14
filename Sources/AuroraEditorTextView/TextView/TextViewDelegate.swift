@@ -11,7 +11,6 @@ public protocol TextViewDelegate: AnyObject {
     func textView(_ textView: TextView, willReplaceContentsIn range: NSRange, with string: String)
     func textView(_ textView: TextView, didReplaceContentsIn range: NSRange, with string: String)
     func textView(_ textView: TextView, shouldReplaceContentsIn range: NSRange, with string: String) -> Bool
-    func textViewDidChange(_ textView: TextView, newText: String)
 }
 
 public extension TextViewDelegate {
